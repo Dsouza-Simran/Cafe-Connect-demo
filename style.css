@@ -1,0 +1,1124 @@
+/* ============================================================
+   CAFÉ CONNECT — style.css
+   ============================================================
+
+   TABLE OF CONTENTS:
+    1.  CSS Variables         — colour palette, fonts, spacing
+    2.  Reset & Base          — clean slate for all browsers
+    3.  Utility Classes       — reusable helpers (.container, .btn, etc.)
+    4.  Navigation            — fixed top bar, scrolled state
+    5.  Hero Section          — full-screen landing area
+    6.  Menu Section          — tabs and card grid
+    7.  About Section         — two-column story layout
+    8.  Gallery Section       — CSS Grid photo collage
+    9.  Visit Us Section      — dark-background info cards
+   10.  Footer                — three-column footer
+   11.  WhatsApp Button       — fixed floating button
+   12.  Scroll Animations     — fade-in on scroll
+   13.  Responsive Styles     — tablet (≤1024px) and mobile (≤768px)
+
+============================================================ */
+
+
+/* ============================================================
+   1. CSS VARIABLES
+   ──────────────────────────────────────────────────────────
+   CSS variables (custom properties) let you define values
+   once and reuse them everywhere. Like named constants in code.
+   Change a variable here → changes everywhere on the page.
+============================================================ */
+:root {
+    /* ── Colour Palette ── */
+    --cream:             #FAF6F0;     /* Warm off-white — main background    */
+    --cream-dark:        #F0E8DC;     /* Slightly darker — alternate sections */
+    --espresso:          #2C1810;     /* Very dark brown — primary text       */
+    --espresso-mid:      #4A2E20;     /* Medium brown — secondary text        */
+    --terracotta:        #C1622F;     /* Warm orange-red — CTA buttons        */
+    --terracotta-hover:  #A8501F;     /* Darker terracotta — button hover     */
+    --terracotta-light:  #F5E8DE;     /* Very light terracotta — subtle fills */
+    --gold:              #C9924D;     /* Warm gold — taglines, accents        */
+    --white:             #FFFFFF;
+    --text-muted:        #7A5C4E;     /* Muted brown — descriptions           */
+    --border:            #E4D5C7;     /* Light border lines                   */
+
+    /* ── Typography ── */
+    --font-heading: 'Playfair Display', Georgia, serif;   /* Elegant serif     */
+    --font-body:    'Lato', 'Helvetica Neue', Arial, sans-serif; /* Clean sans */
+
+    /* ── Spacing ── */
+    --section-padding: 96px 0;    /* Top and bottom padding for each section  */
+    --container-max:   1200px;    /* Maximum width of the content area        */
+    --radius:          12px;      /* Rounded corner amount for cards          */
+
+    /* ── Box Shadows ── */
+    --shadow-sm: 0 2px 8px  rgba(44, 24, 16, 0.08);  /* Subtle shadow        */
+    --shadow-md: 0 6px 24px rgba(44, 24, 16, 0.12);  /* Medium shadow        */
+    --shadow-lg: 0 12px 48px rgba(44, 24, 16, 0.18); /* Large, dramatic      */
+
+    /* ── Transition ── */
+    --transition: all 0.3s ease;  /* Smooth animation for hover effects       */
+}
+
+
+/* ============================================================
+   2. RESET & BASE STYLES
+   ──────────────────────────────────────────────────────────
+   Different browsers apply their own default styles to elements
+   (e.g., margins on <h1>, bullet points on <ul>).
+   This "reset" removes those defaults so our design is consistent.
+============================================================ */
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    /*
+       box-sizing: border-box means that padding and border are
+       included inside an element's total width/height.
+       Without this, adding padding makes elements wider than expected.
+    */
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth; /* Clicking #links scrolls smoothly, not jumps */
+    font-size: 16px;          /* Base font size — 1rem = 16px               */
+}
+
+body {
+    font-family:      var(--font-body);
+    background-color: var(--cream);
+    color:            var(--espresso);
+    line-height:      1.7;    /* Comfortable reading line spacing            */
+    overflow-x:       hidden; /* Prevents accidental horizontal scrollbar    */
+}
+
+img {
+    max-width: 100%;  /* Images never overflow their container              */
+    height: auto;     /* Maintains aspect ratio when width is constrained   */
+    display: block;   /* Removes default bottom gap under images            */
+}
+
+a {
+    text-decoration: none;
+    color: inherit;   /* Links inherit colour from parent element           */
+}
+
+ul {
+    list-style: none; /* No bullet points unless we add them explicitly     */
+}
+
+
+/* ============================================================
+   3. UTILITY CLASSES
+   ──────────────────────────────────────────────────────────
+   Small, reusable classes applied to many elements.
+============================================================ */
+
+/* .container centres content and limits width on wide screens */
+.container {
+    max-width: var(--container-max);
+    margin: 0 auto;     /* auto left/right margins = horizontally centred  */
+    padding: 0 24px;    /* Breathing room on the sides                      */
+}
+
+/* .section adds consistent top/bottom spacing to every section */
+.section {
+    padding: var(--section-padding);
+}
+
+/* Section heading block used in Menu, Gallery, Visit Us */
+.section-header {
+    text-align: center;
+    margin-bottom: 56px;
+}
+
+/* Small all-caps label above the main title — e.g. "Our Offerings" */
+.section-label {
+    font-family:    var(--font-body);
+    font-size:      0.78rem;
+    font-weight:    700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color:          var(--terracotta);
+    margin-bottom:  14px;
+    display: block;
+}
+
+/* Main section title — uses clamp() for responsive font size */
+/*
+   clamp(min, preferred, max)
+   → font is at least 2rem, ideally 4vw, never more than 3rem
+   → automatically shrinks on small screens without media queries
+*/
+.section-title {
+    font-family:   var(--font-heading);
+    font-size:     clamp(2rem, 4vw, 3rem);
+    font-weight:   600;
+    color:         var(--espresso);
+    line-height:   1.2;
+    margin-bottom: 16px;
+}
+
+/* Subtitle text below the main title */
+.section-subtitle {
+    font-size:  1.05rem;
+    color:      var(--text-muted);
+    max-width:  520px;
+    margin:     0 auto;
+}
+
+/* ── Buttons ── */
+.btn {
+    display:      inline-block;
+    padding:      14px 38px;
+    border-radius: 50px;       /* Pill shape — very high value rounds fully  */
+    font-family:  var(--font-body);
+    font-size:    0.95rem;
+    font-weight:  700;
+    letter-spacing: 0.04em;
+    cursor:       pointer;
+    border:       2px solid transparent;
+    transition:   var(--transition);
+}
+
+.btn-primary {
+    background-color: var(--terracotta);
+    color:            var(--white);
+    border-color:     var(--terracotta);
+}
+
+.btn-primary:hover {
+    background-color: var(--terracotta-hover);
+    border-color:     var(--terracotta-hover);
+    transform:        translateY(-2px);   /* Subtle upward lift on hover     */
+    box-shadow:       var(--shadow-md);
+}
+
+
+/* ============================================================
+   4. NAVIGATION
+   ──────────────────────────────────────────────────────────
+   The navbar is "fixed" — it stays at the top as you scroll.
+   Initially it is transparent (no background) so the hero
+   image shows through. When the user scrolls 60px, JavaScript
+   adds the "scrolled" class which adds a white background.
+============================================================ */
+.navbar {
+    position: fixed;   /* Stays at the top of the viewport always          */
+    top:    0;
+    left:   0;
+    width:  100%;
+    z-index: 1000;     /* High z-index = renders on top of all other content */
+    padding: 22px 0;
+    transition: var(--transition);
+}
+
+/* Style when user has scrolled down — added by JavaScript */
+.navbar.scrolled {
+    background-color: rgba(250, 246, 240, 0.97); /* Semi-opaque cream       */
+    backdrop-filter:  blur(8px);                  /* Frosted glass effect    */
+    padding: 12px 0;
+    box-shadow: var(--shadow-sm);
+}
+
+/* Inner wrapper uses flexbox to push logo left and links right */
+.nav-container {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: 0 24px;
+    display:         flex;
+    align-items:     center;
+    justify-content: space-between; /* Logo ←→ Links                        */
+}
+
+/* Logo link */
+.nav-logo {
+    display:     flex;
+    align-items: center;
+    gap:         10px;
+    font-family: var(--font-heading);
+    font-size:   1.5rem;
+    font-weight: 700;
+    color:       var(--white);  /* White on the hero image                  */
+    transition:  var(--transition);
+    flex-shrink: 0;             /* Logo never shrinks when space is tight   */
+}
+
+/* Logo turns dark when navbar has white background */
+.navbar.scrolled .nav-logo {
+    color: var(--espresso);
+}
+
+.logo-icon {
+    font-size: 1.7rem;
+}
+
+/* Desktop nav links — horizontal row */
+.nav-links {
+    display:     flex;
+    gap:         38px;
+    align-items: center;
+}
+
+/* Individual nav link */
+.nav-link {
+    font-size:      0.85rem;
+    font-weight:    700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color:          rgba(255, 255, 255, 0.9);  /* White on hero              */
+    transition:     var(--transition);
+    position:       relative;    /* Needed for the ::after underline trick   */
+}
+
+/*
+   Animated underline on nav links.
+   We create an invisible line using ::after pseudo-element.
+   On hover it expands from 0 to 100% width.
+*/
+.nav-link::after {
+    content:    '';
+    position:   absolute;
+    bottom:     -5px;
+    left:       0;
+    width:      0;          /* Starts invisible */
+    height:     2px;
+    background: var(--terracotta);
+    transition: width 0.3s ease;
+}
+
+.nav-link:hover::after,
+.nav-link.active-link::after {
+    width: 100%;            /* Expands to full width on hover / active      */
+}
+
+/* Nav links turn dark when navbar background is white */
+.navbar.scrolled .nav-link {
+    color: var(--espresso-mid);
+}
+
+.nav-link:hover,
+.nav-link.active-link {
+    color: var(--terracotta);
+}
+
+/* ── Hamburger Button (mobile only — hidden on desktop) ── */
+.hamburger {
+    display:    none;           /* Hidden on desktop                        */
+    flex-direction: column;
+    justify-content: center;
+    gap:        5px;
+    background: none;
+    border:     none;
+    cursor:     pointer;
+    padding:    6px;
+    z-index:    10;
+}
+
+/* Three lines of the hamburger icon */
+.hamburger span {
+    display:       block;
+    width:         24px;
+    height:        2px;
+    background:    var(--white);
+    border-radius: 2px;
+    transition:    var(--transition);
+}
+
+/* Dark lines when navbar background is white */
+.navbar.scrolled .hamburger span {
+    background: var(--espresso);
+}
+
+/*
+   When the hamburger is "open" (JS adds .open class),
+   we rotate the first and third lines to form an × shape.
+   The middle line fades out.
+*/
+.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+
+/* ============================================================
+   5. HERO SECTION
+   ──────────────────────────────────────────────────────────
+   Full-screen section. The background image is set here in CSS.
+   A semi-transparent dark overlay (hero-overlay) is layered over
+   the image to make the white text readable.
+============================================================ */
+.hero {
+    min-height: 100vh;    /* At least the full viewport height               */
+    display:    flex;
+    align-items: center;
+    justify-content: center;
+    position:   relative;
+    /*
+       Free Unsplash image — replace this URL with your own photo.
+       The photo ID (after /photo-) is the unique image identifier.
+    */
+    background-image:    url('https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=1600&q=85');
+    background-size:     cover;          /* Fills the entire section         */
+    background-position: center;         /* Centres the image                */
+    background-attachment: fixed;        /* Creates a subtle parallax effect */
+    text-align: center;
+    padding:    120px 24px 80px;         /* Extra top padding for the navbar */
+}
+
+/* Dark gradient overlay layered on top of the background image */
+.hero-overlay {
+    position: absolute;
+    inset:    0;   /* Shorthand for top:0; right:0; bottom:0; left:0;       */
+    background: linear-gradient(
+        160deg,
+        rgba(20, 10, 5, 0.50) 0%,
+        rgba(20, 10, 5, 0.72) 100%
+    );
+}
+
+/* The text content sits above the overlay */
+.hero-content {
+    position: relative;   /* z-index only works on positioned elements      */
+    z-index:  1;          /* Renders above the overlay (z-index 0)          */
+    max-width: 720px;
+    color: var(--white);
+}
+
+.hero-tagline {
+    font-size:      0.78rem;
+    font-weight:    700;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color:          var(--gold);
+    margin-bottom:  22px;
+    opacity:        0.92;
+}
+
+.hero-title {
+    font-family:  var(--font-heading);
+    font-size:    clamp(2.8rem, 7vw, 5.5rem);
+    font-weight:  700;
+    line-height:  1.1;
+    margin-bottom: 24px;
+    text-shadow:  0 2px 16px rgba(0, 0, 0, 0.3);  /* Subtle depth           */
+}
+
+.hero-description {
+    font-size:     clamp(1rem, 2.2vw, 1.2rem);
+    font-weight:   300;
+    color:         rgba(255, 255, 255, 0.88);
+    margin-bottom: 42px;
+    line-height:   1.8;
+}
+
+
+/* ============================================================
+   6. MENU SECTION
+   ──────────────────────────────────────────────────────────
+   Tab buttons switch which menu grid is visible.
+   JavaScript toggles the "active" class on both the button
+   and the grid to show/hide them. CSS does the visual work.
+============================================================ */
+.menu-section {
+    background-color: var(--cream);
+}
+
+/* Row of tab buttons */
+.menu-tabs {
+    display:         flex;
+    justify-content: center;
+    gap:             14px;
+    flex-wrap:       wrap;   /* Wraps to new line on small screens           */
+    margin-bottom:   52px;
+}
+
+/* Individual tab button */
+.tab-btn {
+    padding:        10px 26px;
+    border-radius:  50px;
+    border:         2px solid var(--border);
+    background:     transparent;
+    color:          var(--text-muted);
+    font-family:    var(--font-body);
+    font-size:      0.9rem;
+    font-weight:    700;
+    cursor:         pointer;
+    transition:     var(--transition);
+    letter-spacing: 0.02em;
+}
+
+.tab-btn:hover {
+    border-color: var(--terracotta);
+    color:        var(--terracotta);
+    background:   var(--terracotta-light);
+}
+
+/* The currently selected tab */
+.tab-btn.active {
+    background-color: var(--terracotta);
+    border-color:     var(--terracotta);
+    color:            var(--white);
+}
+
+/*
+   Menu grids are hidden by default using display: none.
+   When JavaScript adds the "active" class, display: grid
+   is applied and the grid becomes visible.
+*/
+.menu-grid {
+    display: none;   /* Hidden */
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 28px;
+}
+
+.menu-grid.active {
+    display: grid;   /* Shown — auto-fill creates as many columns as fit   */
+}
+
+/* Individual menu item card */
+.menu-card {
+    background-color: var(--white);
+    border-radius:    var(--radius);
+    overflow:         hidden;     /* Clips the image's zoom inside the card  */
+    box-shadow:       var(--shadow-sm);
+    transition:       var(--transition);
+    border:           1px solid var(--border);
+}
+
+.menu-card:hover {
+    transform:  translateY(-6px);  /* Lifts card upward                      */
+    box-shadow: var(--shadow-md);
+}
+
+/* Fixed-height image container */
+.menu-card-img {
+    height:   200px;
+    overflow: hidden;
+}
+
+.menu-card-img img {
+    width:       100%;
+    height:      100%;
+    object-fit:  cover;     /* Fills the box without distorting the image   */
+    transition:  transform 0.45s ease;
+}
+
+/* Image zooms in subtly when card is hovered */
+.menu-card:hover .menu-card-img img {
+    transform: scale(1.06);
+}
+
+/* Card text area */
+.menu-card-body {
+    padding: 20px 22px 22px;
+}
+
+.menu-card-body h3 {
+    font-family:   var(--font-heading);
+    font-size:     1.05rem;
+    font-weight:   600;
+    color:         var(--espresso);
+    margin-bottom: 8px;
+}
+
+.menu-card-body p {
+    font-size:     0.88rem;
+    color:         var(--text-muted);
+    margin-bottom: 18px;
+    line-height:   1.6;
+}
+
+/* Price in terracotta — &#8377; is the HTML entity for ₹ */
+.price {
+    font-family: var(--font-heading);
+    font-size:   1.15rem;
+    font-weight: 700;
+    color:       var(--terracotta);
+}
+
+
+/* ============================================================
+   7. ABOUT SECTION
+   ──────────────────────────────────────────────────────────
+   A two-column grid: text on the left, image on the right.
+   On mobile (see responsive styles below) it collapses to
+   a single column with the image below the text.
+============================================================ */
+.about-section {
+    background-color: var(--cream-dark);
+}
+
+.about-grid {
+    display:               grid;
+    grid-template-columns: 1fr 1fr;   /* Two equal columns                  */
+    gap:                   72px;
+    align-items:           center;
+}
+
+.about-text p {
+    color:         var(--text-muted);
+    margin-bottom: 18px;
+    font-size:     1rem;
+    line-height:   1.85;
+}
+
+/* Left-align section label and title inside the about text column */
+.about-text .section-label { text-align: left; }
+.about-text .section-title {
+    text-align:    left;
+    margin-bottom: 28px;
+}
+
+/* Row of three stats below the story text */
+.about-stats {
+    display:       flex;
+    gap:           40px;
+    margin-top:    40px;
+    padding-top:   32px;
+    border-top:    1px solid var(--border);
+}
+
+.stat-number {
+    display:     block;
+    font-family: var(--font-heading);
+    font-size:   2.5rem;
+    font-weight: 700;
+    color:       var(--terracotta);
+    line-height: 1;
+}
+
+.stat-label {
+    font-size:      0.78rem;
+    color:          var(--text-muted);
+    margin-top:     6px;
+    display:        block;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    line-height:    1.4;
+}
+
+/* Right column: image in a rounded box with a floating badge */
+.about-image {
+    position:      relative;
+    border-radius: var(--radius);
+    overflow:      hidden;
+    box-shadow:    var(--shadow-lg);
+}
+
+.about-image img {
+    width:       100%;
+    height:      520px;
+    object-fit:  cover;
+    object-position: center top;   /* Focus on the top of the image         */
+    display:     block;
+    transition:  transform 0.6s ease;
+}
+
+.about-image:hover img {
+    transform: scale(1.03);
+}
+
+/* Small floating badge over the bottom-left of the image */
+.about-badge {
+    position:      absolute;
+    bottom:        28px;
+    left:          28px;
+    background:    var(--white);
+    border-radius: var(--radius);
+    padding:       16px 20px;
+    display:       flex;
+    align-items:   center;
+    gap:           12px;
+    box-shadow:    var(--shadow-md);
+}
+
+.about-badge span { font-size: 2rem; }
+
+.about-badge p {
+    font-size:   0.85rem;
+    font-weight: 700;
+    color:       var(--espresso);
+    line-height: 1.4;
+}
+
+
+/* ============================================================
+   8. GALLERY SECTION
+   ──────────────────────────────────────────────────────────
+   A CSS Grid with fixed row heights for a mosaic layout.
+   Two special modifier classes create visual variety:
+   - .gallery-item--tall  → spans 2 rows (portrait look)
+   - .gallery-item--wide  → spans 2 columns (landscape look)
+============================================================ */
+.gallery-section {
+    background-color: var(--cream);
+}
+
+.gallery-grid {
+    display:               grid;
+    grid-template-columns: repeat(3, 1fr);     /* 3 equal columns           */
+    grid-template-rows:    repeat(2, 280px);   /* 2 rows, each 280px tall   */
+    gap:                   14px;
+}
+
+.gallery-item {
+    position:      relative;
+    border-radius: var(--radius);
+    overflow:      hidden;
+    cursor:        pointer;
+    background:    var(--cream-dark); /* Placeholder colour if image loads slowly */
+}
+
+/* Tall item: spans 2 rows → becomes portrait-shaped */
+.gallery-item--tall  { grid-row: span 2; }
+
+/* Wide item: spans 2 columns → becomes landscape-shaped */
+.gallery-item--wide  { grid-column: span 2; }
+
+.gallery-item img {
+    width:      100%;
+    height:     100%;
+    object-fit: cover;
+    transition: transform 0.55s ease;
+}
+
+.gallery-item:hover img {
+    transform: scale(1.07);
+}
+
+/* Caption overlay — slides up from bottom on hover */
+.gallery-overlay {
+    position:   absolute;
+    bottom:     0;
+    left:       0;
+    right:      0;
+    padding:    22px 20px 18px;
+    /*
+       Linear gradient from dark at the bottom (readable text)
+       to transparent at the top (see-through into image)
+    */
+    background: linear-gradient(to top, rgba(20, 10, 5, 0.75), transparent);
+    color:      var(--white);
+    font-family: var(--font-heading);
+    font-size:   0.95rem;
+    font-style:  italic;
+    /* Animation: starts below and invisible */
+    transform:  translateY(16px);
+    opacity:    0;
+    transition: var(--transition);
+}
+
+/* On hover: slides into view */
+.gallery-item:hover .gallery-overlay {
+    transform: translateY(0);
+    opacity:   1;
+}
+
+
+/* ============================================================
+   9. VISIT US SECTION
+   ──────────────────────────────────────────────────────────
+   Uses a dark espresso background to create contrast.
+   Three cards in a 3-column grid.
+============================================================ */
+.visit-section {
+    background-color: var(--espresso);
+    color:            var(--white);
+}
+
+/* Override section-header colours for the dark background */
+.visit-section .section-label   { color: var(--gold); }
+.visit-section .section-title   { color: var(--white); }
+.visit-section .section-subtitle { color: rgba(255, 255, 255, 0.65); }
+
+/* Three equal columns */
+.visit-grid {
+    display:               grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap:                   28px;
+}
+
+/* Info card with a glass-like appearance on dark bg */
+.visit-card {
+    background-color: rgba(255, 255, 255, 0.06);
+    border:           1px solid rgba(255, 255, 255, 0.11);
+    border-radius:    var(--radius);
+    padding:          40px 32px;
+    transition:       var(--transition);
+}
+
+.visit-card:hover {
+    background-color: rgba(255, 255, 255, 0.11);
+    transform:        translateY(-5px);
+    border-color:     rgba(255, 255, 255, 0.2);
+}
+
+.visit-icon {
+    font-size:     2.4rem;
+    margin-bottom: 18px;
+    display:       block;
+}
+
+.visit-card h3 {
+    font-family:   var(--font-heading);
+    font-size:     1.25rem;
+    font-weight:   600;
+    color:         var(--gold);
+    margin-bottom: 18px;
+}
+
+.visit-card > p {
+    color:       rgba(255, 255, 255, 0.8);
+    font-size:   0.95rem;
+    line-height: 1.85;
+}
+
+/* Hours list and contact list */
+.hours-list,
+.contact-list {
+    display:        flex;
+    flex-direction: column;
+    gap:            0;
+}
+
+.hours-row,
+.contact-row {
+    display:         flex;
+    justify-content: space-between;
+    align-items:     baseline;
+    gap:             12px;
+    font-size:       0.9rem;
+    color:           rgba(255, 255, 255, 0.78);
+    padding:         12px 0;
+    border-bottom:   1px solid rgba(255, 255, 255, 0.09);
+}
+
+.hours-row:last-child,
+.contact-row:last-child {
+    border-bottom: none;
+}
+
+/* Small italic warning note on fictional info cards */
+.visit-note {
+    margin-top:  18px;
+    font-size:   0.75rem;
+    color:       rgba(255, 190, 130, 0.65);
+    font-style:  italic;
+    line-height: 1.5;
+}
+
+
+/* ============================================================
+   10. FOOTER
+============================================================ */
+.footer {
+    background-color: #1A0E08;   /* Darker than espresso — almost black     */
+    color:            rgba(255, 255, 255, 0.65);
+    padding:          72px 0 0;
+}
+
+.footer-grid {
+    display:               grid;
+    grid-template-columns: 2fr 1fr 1fr;   /* Brand wider, links and social   */
+    gap:                   52px;
+    padding-bottom:        56px;
+    border-bottom:         1px solid rgba(255, 255, 255, 0.08);
+}
+
+.footer-brand .nav-logo {
+    color:         var(--white);
+    margin-bottom: 18px;
+    font-size:     1.35rem;
+}
+
+.footer-brand p {
+    font-size:   0.9rem;
+    line-height: 1.75;
+    max-width:   280px;
+}
+
+.footer-links h4,
+.footer-social h4 {
+    font-family:   var(--font-heading);
+    font-size:     1.1rem;
+    color:         var(--white);
+    margin-bottom: 22px;
+    font-weight:   600;
+}
+
+.footer-links ul {
+    display:        flex;
+    flex-direction: column;
+    gap:            12px;
+}
+
+.footer-links a {
+    font-size:  0.9rem;
+    color:      rgba(255, 255, 255, 0.65);
+    transition: var(--transition);
+}
+
+.footer-links a:hover {
+    color:        var(--terracotta);
+    padding-left: 6px;   /* Subtle slide-right on hover                     */
+}
+
+.social-links {
+    display:        flex;
+    flex-direction: column;
+    gap:            12px;
+}
+
+.social-link {
+    font-size:   0.9rem;
+    color:       rgba(255, 255, 255, 0.65);
+    transition:  var(--transition);
+    display:     flex;
+    align-items: center;
+    gap:         8px;
+}
+
+.social-link:hover {
+    color: var(--terracotta);
+}
+
+.social-note {
+    margin-top:  14px;
+    font-size:   0.73rem;
+    color:       rgba(255, 190, 130, 0.45);
+    font-style:  italic;
+}
+
+.footer-bottom {
+    padding:    22px 0;
+    text-align: center;
+    font-size:  0.8rem;
+    color:      rgba(255, 255, 255, 0.35);
+}
+
+
+/* ============================================================
+   11. WHATSAPP FLOATING BUTTON
+   ──────────────────────────────────────────────────────────
+   Fixed to the bottom-right corner at all times.
+   PLACEHOLDER: Replace the number in index.html's href.
+============================================================ */
+.whatsapp-btn {
+    position:      fixed;
+    bottom:        32px;
+    right:         32px;
+    z-index:       999;   /* Below navbar (1000) but above everything else  */
+    background-color: #25D366;  /* Official WhatsApp brand green             */
+    color:         var(--white);
+    padding:       13px 22px;
+    border-radius: 50px;
+    display:       flex;
+    align-items:   center;
+    gap:           10px;
+    font-weight:   700;
+    font-size:     0.88rem;
+    box-shadow:    0 4px 20px rgba(37, 211, 102, 0.42);
+    transition:    var(--transition);
+    white-space:   nowrap;
+}
+
+.whatsapp-btn:hover {
+    background-color: #1da851;
+    transform:        translateY(-3px);
+    box-shadow:       0 8px 30px rgba(37, 211, 102, 0.55);
+}
+
+
+/* ============================================================
+   12. SCROLL ANIMATIONS (Fade-in on scroll)
+   ──────────────────────────────────────────────────────────
+   Elements with the class "fade-in" start invisible and
+   shifted downward. When they scroll into view, JavaScript
+   adds the "visible" class, which triggers the CSS transition
+   back to full opacity and normal position.
+============================================================ */
+.fade-in {
+    opacity:    0;
+    transform:  translateY(28px);
+    /*
+       The transition runs when any property changes.
+       So when JS adds "visible", opacity goes 0→1 and
+       transform goes translateY(28px) → translateY(0).
+    */
+    transition: opacity 0.72s ease, transform 0.72s ease;
+}
+
+.fade-in.visible {
+    opacity:   1;
+    transform: translateY(0);
+}
+
+/* Stagger delay so multiple cards in a row animate one after another */
+.menu-card:nth-child(2)   { transition-delay: 0.08s; }
+.menu-card:nth-child(3)   { transition-delay: 0.16s; }
+.menu-card:nth-child(4)   { transition-delay: 0.08s; }
+.menu-card:nth-child(5)   { transition-delay: 0.16s; }
+.menu-card:nth-child(6)   { transition-delay: 0.24s; }
+.gallery-item:nth-child(2){ transition-delay: 0.08s; }
+.gallery-item:nth-child(3){ transition-delay: 0.16s; }
+.gallery-item:nth-child(4){ transition-delay: 0.08s; }
+.gallery-item:nth-child(5){ transition-delay: 0.16s; }
+.gallery-item:nth-child(6){ transition-delay: 0.24s; }
+.visit-card:nth-child(2)  { transition-delay: 0.10s; }
+.visit-card:nth-child(3)  { transition-delay: 0.20s; }
+
+
+/* ============================================================
+   13. RESPONSIVE STYLES
+   ──────────────────────────────────────────────────────────
+   @media rules apply styles only when the screen width
+   is at or below the specified breakpoint.
+
+   Breakpoints used:
+   - ≤ 1024px  →  Tablet
+   - ≤  768px  →  Mobile
+   - ≤  440px  →  Small phones
+============================================================ */
+
+/* ──── TABLET (≤ 1024px) ──── */
+@media (max-width: 1024px) {
+
+    /* About: stack columns vertically */
+    .about-grid {
+        grid-template-columns: 1fr;
+        gap: 48px;
+    }
+
+    .about-image img { height: 380px; }
+
+    /* Visit Us: stack to one column */
+    .visit-grid { grid-template-columns: 1fr; }
+
+    /* Footer: two-column layout */
+    .footer-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 36px;
+    }
+    .footer-brand { grid-column: span 2; }   /* Brand spans full width      */
+
+    /* Gallery: 2-column grid */
+    .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows:    auto;
+    }
+    .gallery-item--tall { grid-row: span 1; }    /* Reset tall items         */
+    .gallery-item--wide { grid-column: span 2; } /* Wide still spans full    */
+}
+
+
+/* ──── MOBILE (≤ 768px) ──── */
+@media (max-width: 768px) {
+
+    :root {
+        --section-padding: 64px 0;   /* Less vertical padding on small screens */
+    }
+
+    /* ── Show hamburger, hide desktop nav links ── */
+    .hamburger {
+        display: flex;
+    }
+
+    /*
+       Mobile nav: links are hidden in a collapsed container.
+       max-height: 0 hides them; JS toggles max-height to
+       a large value to reveal them with a smooth slide animation.
+       (We can't animate height: auto, so we use max-height.)
+    */
+    .nav-links {
+        position:   absolute;
+        top:        100%;   /* Directly below the navbar                    */
+        left:       0;
+        right:      0;
+        background: rgba(250, 246, 240, 0.98);
+        backdrop-filter: blur(8px);
+        flex-direction: column;
+        gap:        0;
+        max-height: 0;
+        overflow:   hidden;
+        transition: max-height 0.4s ease, padding 0.3s ease;
+        box-shadow: var(--shadow-md);
+    }
+
+    /* When JS adds .open, the menu slides down */
+    .nav-links.open {
+        max-height: 400px;
+        padding:    12px 0;
+    }
+
+    .nav-link {
+        color:   var(--espresso);
+        padding: 14px 24px;
+        width:   100%;
+        display: block;
+        font-size: 0.9rem;
+    }
+
+    /* Navbar always has a background on mobile (no transparent state) */
+    .navbar {
+        background-color: rgba(250, 246, 240, 0.97);
+        padding: 14px 0;
+    }
+
+    .navbar .nav-logo { color: var(--espresso); }
+    .navbar .hamburger span { background: var(--espresso); }
+
+    /* Disable parallax on mobile — it can look odd on touch devices */
+    .hero { background-attachment: scroll; }
+
+    /* About stats wrap to two columns */
+    .about-stats {
+        flex-wrap: wrap;
+        gap: 24px;
+    }
+
+    /* Menu: single column */
+    .menu-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* Gallery: single column */
+    .gallery-grid {
+        grid-template-columns: 1fr;
+        grid-template-rows:    auto;
+    }
+    .gallery-item        { height: 240px; }
+    .gallery-item--tall  { grid-row: span 1; }
+    .gallery-item--wide  { grid-column: span 1; }
+
+    /* Footer: single column */
+    .footer-grid           { grid-template-columns: 1fr; }
+    .footer-brand          { grid-column: span 1; }
+
+    /* WhatsApp: shrink to circle on small screens */
+    .whatsapp-btn span     { display: none; }
+    .whatsapp-btn {
+        padding:       14px;
+        border-radius: 50%;
+        width:         58px;
+        height:        58px;
+        justify-content: center;
+    }
+}
+
+
+/* ──── SMALL PHONES (≤ 440px) ──── */
+@media (max-width: 440px) {
+
+    .menu-tabs { gap: 8px; }
+    .tab-btn   { padding: 8px 14px; font-size: 0.8rem; }
+
+    /* Stack hours and contact rows vertically on very small screens */
+    .hours-row,
+    .contact-row {
+        flex-direction: column;
+        gap: 3px;
+    }
+
+    .about-stats { flex-direction: column; gap: 20px; }
+
+    .footer-grid { gap: 28px; }
+}

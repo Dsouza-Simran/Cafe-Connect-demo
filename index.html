@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Café Connect — Koramangala's Favourite Corner</title>
+    <meta name="description" content="Café Connect — handcrafted brews, warm corners and conversations worth having. Visit us in Koramangala, Bengaluru.">
+
+    <!--
+        Google Fonts (free, loaded from Google's CDN — no download needed).
+        - Playfair Display: elegant serif for headings
+        - Lato: clean sans-serif for body text
+    -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+
+    <!-- Our custom stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- ============================================================
+         SECTION 1 — NAVIGATION BAR
+         Fixed to the top of the page at all times.
+         - The logo is on the left.
+         - Navigation links are on the right.
+         - On mobile, links collapse into a hamburger icon (☰).
+         JavaScript (script.js) handles the hamburger toggle and
+         adds a "scrolled" class when the user scrolls down.
+    ============================================================ -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+
+            <!-- Logo / Brand Name -->
+            <a href="#home" class="nav-logo">
+                <span class="logo-icon">☕</span>
+                <span class="logo-text">Café Connect</span>
+            </a>
+
+            <!-- Hamburger button: visible only on mobile screens -->
+            <button class="hamburger" id="hamburger" aria-label="Open navigation menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <!-- Navigation links -->
+            <ul class="nav-links" id="nav-links">
+                <li><a href="#home"    class="nav-link">Home</a></li>
+                <li><a href="#menu"    class="nav-link">Menu</a></li>
+                <li><a href="#about"   class="nav-link">About</a></li>
+                <li><a href="#gallery" class="nav-link">Gallery</a></li>
+                <li><a href="#visit"   class="nav-link">Visit Us</a></li>
+            </ul>
+
+        </div>
+    </nav>
+
+
+    <!-- ============================================================
+         SECTION 2 — HERO
+         The first full-screen section visitors see.
+         Background image is set in CSS.
+         Dark overlay on the image makes the white text readable.
+    ============================================================ -->
+    <section class="hero" id="home">
+        <div class="hero-overlay"></div>
+
+        <div class="hero-content">
+            <p class="hero-tagline">Est. 2019 &nbsp;·&nbsp; Koramangala, Bengaluru</p>
+
+            <h1 class="hero-title">
+                Where Every Sip<br>Tells a Story.
+            </h1>
+
+            <p class="hero-description">
+                Handcrafted brews, warm corners, and conversations worth having.
+                Your neighbourhood café, reimagined.
+            </p>
+
+            <!-- "Explore Menu" scrolls down to the #menu section -->
+            <a href="#menu" class="btn btn-primary">Explore Our Menu</a>
+        </div>
+    </section>
+
+
+    <!-- ============================================================
+         SECTION 3 — MENU
+         Four tabs: Coffee | Cold Beverages | Snacks | Desserts
+         Each tab button has a data-tab attribute that JavaScript
+         uses to show the matching menu grid.
+         All images are free Unsplash photos loaded via URL.
+         NOTE: Replace Unsplash URLs with your own photos if desired.
+    ============================================================ -->
+    <section class="menu-section section" id="menu">
+        <div class="container">
+
+            <!-- Section heading -->
+            <div class="section-header fade-in">
+                <p class="section-label">Our Offerings</p>
+                <h2 class="section-title">The Menu</h2>
+                <p class="section-subtitle">Every item crafted with care, every flavour a new memory.</p>
+            </div>
+
+            <!-- Tab buttons — JavaScript switches the active tab on click -->
+            <div class="menu-tabs fade-in">
+                <button class="tab-btn active" data-tab="coffee">☕ Coffee</button>
+                <button class="tab-btn" data-tab="cold">🧊 Cold Beverages</button>
+                <button class="tab-btn" data-tab="snacks">🥪 Snacks</button>
+                <button class="tab-btn" data-tab="desserts">🍰 Desserts</button>
+            </div>
+
+            <!-- ── COFFEE TAB (shown by default — has the "active" class) ── -->
+            <div class="menu-grid active" id="tab-coffee">
+
+                <div class="menu-card fade-in">
+                    <div class="menu-card-img">
+                        <!-- Free Unsplash image · swap URL to change photo -->
+                        <img src="https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?w=480&q=80"
+                             alt="Midnight Espresso — double shot dark roast coffee">
+                    </div>
+                    <div class="menu-card-body">
+                        <h3>Midnight Espresso</h3>
+                        <p>Double shot of our darkest roast — bold, smoky, unapologetic.</p>
+                        <span class="price">&#8377;120</span>
+                    </div>
+                </div>
+
+                <div class="menu-card fade-in">
+                    <div class="menu-card-img">
+                        <img src="https://images.unsplash.com/photo-1570968915860-54d5c301fa9f?w=480&q=80"
+                             alt="Hazel Dream Latte — hazelnut syrup latte">
+                    </div>
+                    <div class="menu-card-body">
+                        <h3>Hazel Dream Latte</h3>
+                        <p>Velvety steamed milk, espresso and house-made hazelnut syrup.</p>
+                        <span class="price">&#8377;180</span>
+                    </div>
+                </div>
+
+                <div class="menu-card fade-in">
+                    <div class="menu-card-img">
+                        <img src="https://images.unsplash.com/photo-1534778101976-62847782c213?w=480&q=80"
+                             alt="Cinnamon Cloud Cappuccino">
+                    </div>
+                    <div class="menu-card-body">
+                        <h3>Cinnamon Cloud Cappuccino</h3>
+                        <p>Classic cappuccino dusted with Ceylon cinnamon and cocoa.</p>
+                        <span class="price">&#8377;165</span>
+                    </div>
+                </div>
+
+                <div class="menu-card fade-in">
+                    <div class="menu-card-img">
+                        <img src="https://images.unsplash.com/photo-1485808191679-5f86510bd9d4?w=480&q=80"
+                             alt="Butter Caramel Macchiato">
+                    </div>
+                    <div class="menu-card-body">
+                        <h3>Butter Caramel Macchiato</h3>
+                        <p>Espresso layered with foamed milk and a salted caramel drizzle.</p>
+                        <span class="price">&#8377;195</span>
+                    </div>
+                </div>
+
+                <div class="menu-card fade-in">
+                    <div class="menu-card-img">
+                        <img src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?w=480&q=80"
+                             alt="Monsoon Malabar Filter Coffee">
+                    </div>
+                    <div class="menu-card-body">
+                        <h3>Monsoon Malabar Filter</h3>
+                        <p>Traditional South Indian filter coffee brewed with aged Malabar beans.</p>
+                        <span class="price">&#8377;145</span>
+                    </div>
+                </div>
+
+                <div class="menu-card fade-in">
+                    <div class="menu-card-img">
+                        <img src="https://images.unsplash.com/photo-1572286258217-215cf8e4bb3e?w=480&q=80"
+                             alt="Rose Velvet Cortado">
+                    </div>
+                    <div class="menu-card-body">
+                        <h3>Rose Velvet Cortado</h3>
+                        <p>Equal parts espresso and warm milk with a delicate hint of rosewater.</p>
+                        <span class="price">&#8377;170</span>
+                    </div>
+                </div>
+
+            </div><!-- end #tab-coffee -->
+
+
+            <!-- ── COLD BEVERAGES TAB (hidden by default) ── -->
+            <div class="menu-grid" id="tab-cold">
+
+                <div class="menu-card fade-in">
+                    <div class="menu-card-img">
+                        <img src="https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=480&q=80"
+                             alt="Cold Brew Noir — 18-hour slow-steeped cold brew">
+                    </div>
+                    <div class="menu-card-body">
+                        <h3>Cold Brew Noir</h3>
+                        <p>18-hour slow-steeped cold brew — smooth, rich and powerful.</p>
+                        <span class="price">&#8377;190</span>
+                    </div>
+                </div>
+
+                <div class="menu-card fade-in">
+                    <div class="menu-card-img">
+                        <img src="https://images.unsplash.com/photo-1568909344668-6f14a07b56a0?w=480&q=80"
+                             alt="Mango Chilli Fizz — sparkling mango drink">
+                    </div>
+                    <div class="menu-card-body">
+                        <h3>Mango Chilli Fizz</h3>
+                        <p>Alphonso mango juice, sparkling water and a chilli-salt rim.</p>
+                        <span class="price">&#8377;165</span>
+                    </div>
+                </div>
+
+                <div class="menu-card fade-in">
+                    <div class="menu-card-img">
+                        <img src="https://images.unsplash.com/photo-1553361371-9b22f78e8b1d?w=480&q=80"
+                             alt="Blue Butterfly Lemonade — colour-changing drink">
+                    </div>
+                    <div class="menu-card-body">
+                        <h3>Blue Butterfly Lemonade</h3>
+                        <p>Butterfly pea flower tea, lemon and honey — colour-changing magic.</p>
+                        <span class="price">&#8377;155</span>
+                    </div>
+                </div>
+
+                <div class="menu-card fade-in">
+                    <div class="menu-card-img">
+                        <img src="https://images.unsplash.com/photo-1541658016709-82535e94bc69?w=480&q=80"
+                             alt="Oreo Midnight Frappe — blended Oreo and coffee drink">
+                    </div>
+                    <div class="menu-card-body">
+                        <h3>Oreo Midnight Frappe</h3>
+                        <p>Blended Oreo, vanilla ice cream, espresso and whipped cream.</p>
+                        <span class="price">&#8377;210</span>
+                    </div>
+                </div>
+
+                <div class="menu-card fade-in">
+                    <div class="menu-card-img">
+                        <img src="https://images.unsplash.com/photo-1544145945-f90425340c7e?w=480&q=80"
+                             alt="Strawberry Matcha Cooler — iced matcha with strawberry">
+                    </div>
+                    <div class="menu-card-body">
+                        <h3>Strawberry Matcha Cooler</h3>
+                        <p>Ceremonial-grade matcha over strawberry purée and iced oat milk.</p>
+                        <span class="price">&#8377;195</span>
+                    </div>
+                </div>
+
+                <div class="menu-card fade-in">
+                    <div class="menu-card-img">
+                        <img src="https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=480&q=80"
+                             alt="Watermelon Mint Slush">
+                    </div>
+                    <div class="menu-card-body">
+                        <h3>Watermelon Mint Slush</h3>
+                        <p>Fresh watermelon blended with garden mint and a squeeze of lime.</p>
+                        <span class="price">&#8377;150</span>
+                    </div>
+                </div>
+
+            </div><!-- end #tab-cold -->
+
+
+            <!-- ── SNACKS TAB (hidden by default) ── -->
+            <div class="menu-grid" id="tab-snacks">
+
+                <div class="menu-card fade-in">
+                    <div class="menu-card-img">
+                        <img src="https://images.unsplash.com/photo-1541014741259-de529411b96a?w=480&q=80"
+                             alt="Truffle Mushroom Bruschetta on sourdough">
+                    </div>
+                    <div class="menu-card-body">
+                        <h3>Truffle Mushroom Bruschetta</h3>
+                        <p>Wild mushrooms, truffle oil and parmesan on toasted sourdough.</p>
+                        <span class="price">&#8377;220</span>
+                    </div>
+                </div>
+
+                <div class="menu-card fade-in">
+                    <div class="menu-card-img">
+                        <img src="https://images.unsplash.com/photo-1550507992-eb63ffee0847?w=480&q=80"
+                             alt="Pesto Chicken Slider — brioche bun with grilled chicken">
+                    </div>
+                    <div class="menu-card-body">
+                        <h3>Pesto Chicken Slider</h3>
+                        <p>Grilled chicken, basil pesto and mozzarella in a toasted brioche bun.</p>
+                        <span class="price">&#8377;260</span>
+                    </div>
+                </div>
+
+                <div class="menu-card fade-in">
+                    <div class="menu-card-img">
+                        <img src="https://images.unsplash.com/photo-1525351484163-7529414344d8?w=480&q=80"
+                             alt="Classic Avocado Toast with poached egg">
+                    </div>
+                    <div class="menu-card-body">
+                        <h3>Classic Avocado Toast</h3>
+                        <p>Smashed avocado, chilli flakes, a poached egg and microgreens.</p>
+                        <span class="price">&#8377;240</span>
+                    </div>
+                </div>
+
+                <div class="menu-card fade-in">
+                    <div class="menu-card-img">
+                        <img src="https://images.unsplash.com/photo-1530610476181-d83430b64dcd?w=480&q=80"
+                             alt="Chilli Cheese Croissant — buttery pastry with jalapeños">
+                    </div>
+                    <div class="menu-card-body">
+                        <h3>Chilli Cheese Croissant</h3>
+                        <p>Buttery croissant stuffed with jalapeños and three-cheese blend.</p>
+                        <span class="price">&#8377;195</span>
+                    </div>
+                </div>
+
+                <div class="menu-card fade-in">
+                    <div class="menu-card-img">
+                        <img src="https://images.unsplash.com/photo-1547592166-23ac45744acd?w=480&q=80"
+                             alt="Roasted Tomato Soup — slow-roasted with basil cream">
+                    </div>
+                    <div class="menu-card-body">
+                        <h3>Roasted Tomato Soup</h3>
+                        <p>Slow-roasted tomatoes, basil cream and crusty bread on the side.</p>
+                        <span class="price">&#8377;180</span>
+                    </div>
+                </div>
+
+                <div class="menu-card fade-in">
+                    <div class="menu-card-img">
+                        <img src="https://images.unsplash.com/photo-1513456852971-30c0b8199d4d?w=480&q=80"
+                             alt="Loaded Café Nachos — corn chips with toppings">
+                    </div>
+                    <div class="menu-card-body">
+                        <h3>Loaded Café Nachos</h3>
+                        <p>Crispy corn chips, salsa, guacamole, sour cream and cheddar.</p>
+                        <span class="price">&#8377;280</span>
+                    </div>
+                </div>
+
+            </div><!-- end #tab-snacks -->
+
+
+            <!-- ── DESSERTS TAB (hidden by default) ── -->
+            <div class="menu-grid" id="tab-desserts">
+
+                <div class="menu-card fade-in">
+                    <div class="menu-card-img">
+                        <img src="https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?w=480&q=80"
+                             alt="Belgian Chocolate Lava Cake with vanilla ice cream">
+                    </div>
+                    <div class="menu-card-body">
+                        <h3>Belgian Choco Lava Cake</h3>
+                        <p>Warm dark chocolate cake with a gooey molten centre and vanilla bean ice cream.</p>
+                        <span class="price">&#8377;290</span>
+                    </div>
+                </div>
+
+                <div class="menu-card fade-in">
+                    <div class="menu-card-img">
+                        <img src="https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?w=480&q=80"
+                             alt="Tiramisu Jar — espresso-soaked ladyfingers with mascarpone">
+                    </div>
+                    <div class="menu-card-body">
+                        <h3>Tiramisu Jar</h3>
+                        <p>Espresso-soaked ladyfingers layered with mascarpone cream and cocoa dust.</p>
+                        <span class="price">&#8377;265</span>
+                    </div>
+                </div>
+
+                <div class="menu-card fade-in">
+                    <div class="menu-card-img">
+                        <img src="https://images.unsplash.com/photo-1524351199678-941a58a3df50?w=480&q=80"
+                             alt="Biscoff Cheesecake — no-bake with cookie butter drizzle">
+                    </div>
+                    <div class="menu-card-body">
+                        <h3>Biscoff Cheesecake</h3>
+                        <p>No-bake cheesecake on a Biscoff crust, topped with cookie butter drizzle.</p>
+                        <span class="price">&#8377;275</span>
+                    </div>
+                </div>
+
+                <div class="menu-card fade-in">
+                    <div class="menu-card-img">
+                        <img src="https://images.unsplash.com/photo-1488477181946-6428a0291777?w=480&q=80"
+                             alt="Mango Panna Cotta — silky Italian cream with Alphonso mango">
+                    </div>
+                    <div class="menu-card-body">
+                        <h3>Mango Panna Cotta</h3>
+                        <p>Silky Italian cream set with Alphonso mango coulis and fresh mint.</p>
+                        <span class="price">&#8377;245</span>
+                    </div>
+                </div>
+
+                <div class="menu-card fade-in">
+                    <div class="menu-card-img">
+                        <img src="https://images.unsplash.com/photo-1562376552-0d160a2f238d?w=480&q=80"
+                             alt="Nutella Waffle Stack — Belgian waffles with strawberries">
+                    </div>
+                    <div class="menu-card-body">
+                        <h3>Nutella Waffle Stack</h3>
+                        <p>Belgian waffles stacked with Nutella, strawberries and whipped cream.</p>
+                        <span class="price">&#8377;295</span>
+                    </div>
+                </div>
+
+                <div class="menu-card fade-in">
+                    <div class="menu-card-img">
+                        <img src="https://images.unsplash.com/photo-1464305795204-6f5bbfc7fb81?w=480&q=80"
+                             alt="Coconut Tres Leches — three-milk sponge with toasted coconut">
+                    </div>
+                    <div class="menu-card-body">
+                        <h3>Coconut Tres Leches</h3>
+                        <p>Three-milk sponge with coconut cream, toasted flakes and lime zest.</p>
+                        <span class="price">&#8377;255</span>
+                    </div>
+                </div>
+
+            </div><!-- end #tab-desserts -->
+
+        </div>
+    </section>
+
+
+    <!-- ============================================================
+         SECTION 4 — ABOUT
+         Two-column layout: café story on the left, image on the right.
+         All business details (names, years) are fictional.
+    ============================================================ -->
+    <section class="about-section section" id="about">
+        <div class="container">
+            <div class="about-grid">
+
+                <!-- Left column: story text -->
+                <div class="about-text fade-in">
+                    <p class="section-label">Our Story</p>
+                    <h2 class="section-title">A Corner Built<br>on Connection.</h2>
+
+                    <p>
+                        Café Connect was born in 2019 from a simple idea — that the best conversations
+                        happen over a great cup of coffee. Founders Meera and Arjun Nair opened our
+                        doors in Koramangala with nothing but a secondhand espresso machine, a handful
+                        of recipes passed down from their grandparents, and an unwavering belief that
+                        a café should feel like a second home.
+                    </p>
+                    <p>
+                        We source our beans directly from small farms in Coorg and Chikmagalur, roasted
+                        fresh every week by our in-house roaster. Our kitchen team — all from the local
+                        neighbourhood — bakes pastries from scratch each morning before the first customer
+                        walks in.
+                    </p>
+                    <p>
+                        From the mismatched vintage chairs to the hand-painted murals on our walls,
+                        every corner of Café Connect is a deliberate choice — because we believe
+                        that the details are what make a place worth returning to.
+                    </p>
+
+                    <!-- Stats row -->
+                    <div class="about-stats">
+                        <div class="stat">
+                            <span class="stat-number">6+</span>
+                            <span class="stat-label">Years Brewing</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">12</span>
+                            <span class="stat-label">Local Team Members</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number">3</span>
+                            <span class="stat-label">Farm Partners</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right column: café image with a floating badge -->
+                <div class="about-image fade-in">
+                    <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=700&q=80"
+                         alt="Inside Café Connect — cosy café interior with warm lighting and wooden furniture">
+                    <div class="about-badge">
+                        <span>☕</span>
+                        <p>Roasted<br>Fresh Weekly</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ============================================================
+         SECTION 5 — GALLERY
+         CSS Grid with 6 café and coffee images.
+         Two items have special span classes for a masonry-like look.
+    ============================================================ -->
+    <section class="gallery-section section" id="gallery">
+        <div class="container">
+
+            <div class="section-header fade-in">
+                <p class="section-label">Visual Stories</p>
+                <h2 class="section-title">Life at the Café</h2>
+                <p class="section-subtitle">A glimpse into our world — one frame at a time.</p>
+            </div>
+
+            <div class="gallery-grid">
+
+                <div class="gallery-item fade-in">
+                    <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=600&q=80"
+                         alt="Barista pouring latte art into a coffee cup">
+                    <div class="gallery-overlay"><p>The Art of the Pour</p></div>
+                </div>
+
+                <!-- "gallery-item--tall" spans 2 rows in the grid -->
+                <div class="gallery-item gallery-item--tall fade-in">
+                    <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=600&q=80"
+                         alt="Coffee cup with latte art on a wooden table in morning light">
+                    <div class="gallery-overlay"><p>Morning Light</p></div>
+                </div>
+
+                <div class="gallery-item fade-in">
+                    <img src="https://images.unsplash.com/photo-1442512595331-e89e73853f31?w=600&q=80"
+                         alt="Warm café atmosphere with soft lighting and comfortable seating">
+                    <div class="gallery-overlay"><p>Our Space</p></div>
+                </div>
+
+                <div class="gallery-item fade-in">
+                    <img src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=600&q=80"
+                         alt="Close-up of fresh coffee beans and brewing equipment">
+                    <div class="gallery-overlay"><p>From Bean to Cup</p></div>
+                </div>
+
+                <!-- "gallery-item--wide" spans 2 columns in the grid -->
+                <div class="gallery-item gallery-item--wide fade-in">
+                    <img src="https://images.unsplash.com/photo-1453614512568-c4024d13c247?w=800&q=80"
+                         alt="Fresh pastries and baked goods displayed at the café counter">
+                    <div class="gallery-overlay"><p>Freshly Baked Each Morning</p></div>
+                </div>
+
+                <div class="gallery-item fade-in">
+                    <img src="https://images.unsplash.com/photo-1507133750040-4a8f57021571?w=600&q=80"
+                         alt="Flat lay of coffee, a notebook and reading glasses on a café table">
+                    <div class="gallery-overlay"><p>Good Ideas Happen Here</p></div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ============================================================
+         SECTION 6 — VISIT US
+         Three info cards: Address · Hours · Contact
+         All details below are FICTIONAL — for demo purposes only.
+    ============================================================ -->
+    <section class="visit-section section" id="visit">
+        <div class="container">
+
+            <div class="section-header fade-in">
+                <p class="section-label">Come Say Hello</p>
+                <h2 class="section-title">Find Us</h2>
+                <p class="section-subtitle">We're just around the corner — always ready with a fresh brew.</p>
+            </div>
+
+            <div class="visit-grid">
+
+                <!-- Card 1: Address -->
+                <div class="visit-card fade-in">
+                    <div class="visit-icon">📍</div>
+                    <h3>Address</h3>
+                    <p>
+                        42, Brew Lane,<br>
+                        Koramangala 5th Block,<br>
+                        Bengaluru, Karnataka 560095
+                    </p>
+                    <!-- Clearly marked as fictional -->
+                    <p class="visit-note">⚠️ Fictional address — demo only</p>
+                </div>
+
+                <!-- Card 2: Opening Hours -->
+                <div class="visit-card fade-in">
+                    <div class="visit-icon">🕐</div>
+                    <h3>Opening Hours</h3>
+                    <div class="hours-list">
+                        <div class="hours-row">
+                            <span>Monday – Friday</span>
+                            <span>7:00 AM – 10:00 PM</span>
+                        </div>
+                        <div class="hours-row">
+                            <span>Saturday – Sunday</span>
+                            <span>8:00 AM – 11:00 PM</span>
+                        </div>
+                        <div class="hours-row">
+                            <span>Public Holidays</span>
+                            <span>9:00 AM – 9:00 PM</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3: Contact -->
+                <div class="visit-card fade-in">
+                    <div class="visit-icon">📞</div>
+                    <h3>Contact Us</h3>
+                    <div class="contact-list">
+                        <div class="contact-row">
+                            <span>📱 Phone</span>
+                            <!--
+                                PLACEHOLDER PHONE NUMBER
+                                Replace +91 98765 43210 with the real number.
+                                Also update the WhatsApp button href at the bottom.
+                            -->
+                            <span>+91 98765 43210</span>
+                        </div>
+                        <div class="contact-row">
+                            <span>✉️ Email</span>
+                            <span>hello@cafeconnect.in</span>
+                        </div>
+                        <div class="contact-row">
+                            <span>🌐 Website</span>
+                            <span>www.cafeconnect.in</span>
+                        </div>
+                    </div>
+                    <p class="visit-note">⚠️ Fictional contact — demo only</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ============================================================
+         FOOTER
+         Three-column layout: brand | quick links | social media
+         All social media links are placeholders (#).
+    ============================================================ -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+
+                <!-- Brand description -->
+                <div class="footer-brand">
+                    <a href="#home" class="nav-logo">
+                        <span class="logo-icon">☕</span>
+                        <span class="logo-text">Café Connect</span>
+                    </a>
+                    <p>Where every sip tells a story.<br>Koramangala's favourite corner since 2019.</p>
+                </div>
+
+                <!-- Quick navigation links -->
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#menu">Menu</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#gallery">Gallery</a></li>
+                        <li><a href="#visit">Visit Us</a></li>
+                    </ul>
+                </div>
+
+                <!-- Social media placeholders -->
+                <div class="footer-social">
+                    <h4>Follow Along</h4>
+                    <div class="social-links">
+                        <!--
+                            PLACEHOLDER SOCIAL LINKS
+                            Replace each "#" with the real URL, e.g.:
+                            href="https://www.instagram.com/cafeconnect"
+                        -->
+                        <a href="#" class="social-link" aria-label="Instagram">📸 Instagram</a>
+                        <a href="#" class="social-link" aria-label="Facebook">👍 Facebook</a>
+                        <a href="#" class="social-link" aria-label="Twitter / X">🐦 Twitter / X</a>
+                        <a href="#" class="social-link" aria-label="YouTube">▶️ YouTube</a>
+                    </div>
+                    <p class="social-note">⚠️ Social links are placeholders</p>
+                </div>
+
+            </div>
+
+            <div class="footer-bottom">
+                <p>
+                    &copy; 2025 Café Connect. All rights reserved.
+                    &nbsp;·&nbsp;
+                    <em>Demo website — all information is entirely fictional.</em>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- ============================================================
+         WHATSAPP FLOATING BUTTON
+         Fixed to the bottom-right corner of the screen.
+
+         HOW IT WORKS:
+         The href uses the wa.me deep-link format:
+         https://wa.me/<country-code><number>
+         e.g. India (+91) + 9876543210 = https://wa.me/919876543210
+
+         PLACEHOLDER: Replace "919876543210" with the real number
+         (no spaces, no dashes, include country code).
+    ============================================================ -->
+    <a href="https://wa.me/919876543210"
+       class="whatsapp-btn"
+       target="_blank"
+       rel="noopener noreferrer"
+       aria-label="Chat with Café Connect on WhatsApp">
+
+        <!-- Official WhatsApp logo (inline SVG — no image file needed) -->
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="26" height="26" aria-hidden="true">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+        </svg>
+        <span>Chat with Us</span>
+
+    </a>
+
+
+    <!--
+        JavaScript file is loaded at the END of <body>.
+        This ensures all HTML elements above exist in the page
+        before the JS tries to find and use them.
+    -->
+    <script src="script.js"></script>
+
+</body>
+</html>
